@@ -1,8 +1,16 @@
 import IterationSample from './IterationSample'
+import Counter from './Counter'
+import Info from './Info'
+import Average from './Average'
 
 function App() {
   return (
-    <IterationSample/>
+    <div>
+      <IterationSample/>
+      <Counter/>
+      <Info/>
+      <Average/>
+    </div>
   );
 }
 
