@@ -4,7 +4,7 @@ import './TodoTemplate.scss'
 const TodoTemplate = ({children}) => {
     return (
         <div className="TodoTemplate">
-            <div className="app-title">CRUD</div>
+            <div className="app-title">Adim Page - CRUD</div>
             <div className="content">{children}</div>
         </div>
     );
