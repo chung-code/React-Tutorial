@@ -25,21 +25,13 @@ const DropDown = ({ onSelect }) => {
         alert(item + "을 선택하셨습니다.");
     }
 
-    // const onCategory = useCallback(
-    //     e => {
-    //         onInsert(value);
-    //         setValue(''); //value 값 초기화
-    //         e.preventDefault(); //submit 이벤트는 브라우저에서 새로고침을 발생시키는데, 이를 방지하기 위해 이 함수를 호출
-    //     },
-    //     [onInsert, value],
-    // );
-
     return (
         <DropdownButton id="dropdown-basic-button" title="-- Select Category --">
             <Dropdown.Item onSelect={onSelect} eventKey="인삿말" >인삿말</Dropdown.Item>
             <Dropdown.Item onSelect={onSelect} eventKey="제품소개" >제품소개</Dropdown.Item>
             <Dropdown.Item onSelect={onSelect} eventKey="매장안내" >매장안내</Dropdown.Item>
         </DropdownButton>
+        
     )
 }
 
