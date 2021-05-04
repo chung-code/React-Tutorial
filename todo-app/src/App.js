@@ -27,6 +27,8 @@ function App() {
     [todos],
   ); //todos가 바뀌었을 때만 함수 생성
 
+
+// 비동기 작업을 수행하기 위해 then을 통한 콜백함수를 사용했지만, async-await 구문을 통한 작업 가능
   const onClick = useCallback(
     () => {
       const url = 'http://localhost:8080/todo'
@@ -47,7 +49,6 @@ function App() {
         setCat(category)
       })
     },
-    // [todos],
     [todos, cat],
   );
 
