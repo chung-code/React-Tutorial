@@ -1,37 +1,26 @@
 const express = require("express");
 const cors = require("cors");
+const { router } = require('./routes/dataRoutes');
 const app = express();
 const port = 8080;
-
-const todos = [
-	{ 
-    category: '인삿말',
-    id:1,
-    text: '안녕하세요',
-    checked: true,
-  },
-  {
-    category: '인삿말',
-    id:2,
-    text: '반갑습니다',
-    checked: true,
-  },
-  {
-    category: '매장안내',
-    id:3,
-    text: '하이~ 에이치아이',
-    checked: false,
-  }
-];
+const db = require('./database/db')
 
 app.use(cors());
 app.options("*", cors());
 
-app.get("/", (req, res) => res.send("Hello World!"));
-app.get("/todo", (req, res) => res.json(todos));
-app.get("/todo/category", (req, res) => {
-  res.json(todos.filter(todo => todo.category == req.query[0]))
-  console.log(req.query[0])
-});
+app.use(express.json())
+
+app.use('/todo', router)
+app.get('/test', (req, res) =>{
+    res.status(200).send("goood")
+})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+// process.on('SIGINT', function () {
+//     isDisableKeepAlive = true
+//     app.close(function () {
+//     console.log('server closed')
+//     process.exit(0)
+//     })
+//   })
