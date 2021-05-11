@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const dataController = require('../controller/dataControlle_db');; 
+const dataController = require('../controller/dataController_db');; 
 
 //format 
 router.get('/test', (req, res) => {
@@ -8,6 +8,7 @@ router.get('/test', (req, res) => {
 })
 
 router.put('/write', dataController.write)
+router.get('/count', dataController.count)
 router.get('/list', dataController.list)
 router.get('/category', dataController.category)
 router.delete('/remove', dataController.remove)

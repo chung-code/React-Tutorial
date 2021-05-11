@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useRef} from 'react';
+import React, {useCallback, useState, useEffect} from 'react';
 import TodoList from './components/TodoList';
 import TodoInsert from './components/TodoInsert';
 import TodoTemplate from './components/TodoTemplate';
@@ -11,31 +11,18 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [cat, setCat] = useState([]);
 
-  // 1
-  // const nextId = useRef(4);
-
-  // const onInsert = useCallback(
-  //   (text, cat) => {
-  //     const todo = {
-  //       category: cat,
-  //       id: nextId.current,
-  //       text,
-  //       checked: false
-  //     };
-  //     setTodos(todos.concat(todo));
-  //     nextId.current += 1;
-  //     console.log(todo)
-  //     const url = 'http://localhost:8080/todo/write'
-  //     axios.put(url, todo).then(function(response){
-  //       console.log(response.data)
-  //     })
-  //   },
-  //   [todos],
-  // ); //todos가 바뀌었을 때만 함수 생성
-
-
-  //2
-  const [id, setId] = useState(6);
+  const [id, setId] = useState([]);
+  useEffect(
+    () => {
+      const url = 'http://localhost:8080/todo/count'
+      axios.get(url).then(function(response){
+        let max_num = response.data[0].id
+        console.log(max_num)
+        setId(max_num+1)
+      })
+    },
+    [], // 초기 렌더링 시 가져오는 로직
+  );
 
   const onInsert = useCallback(
     (text, cat) => {
@@ -53,7 +40,7 @@ function App() {
         console.log(response.data)
       })
     },
-    [todos],
+    [todos, id],
   ); //todos가 바뀌었을 때만 함수 생성
 
 
@@ -66,19 +53,21 @@ function App() {
         setTodos(response.data)
       })
     },
-    [todos],
   );
 
   const onSelect = useCallback(
     category => {
       const url = 'http://localhost:8080/todo/category'
-      axios.get(url, {"params": category}).then(function(response){
-        console.log(response.data)
-        setTodos(response.data)
-        setCat(category)
-      })
+      axios.get(url, {"params": category})
+        .then((response) => {
+          console.log(response.data);
+          setTodos(response.data);
+          setCat(category);
+        })
+        .catch((response) => {
+          console.log('error');
+        });
     },
-    [todos, cat],
   );
 
   const onRemove = useCallback(
@@ -89,15 +78,6 @@ function App() {
     },
     [todos],
   );
-
-  // const onRemove = useCallback(
-  //   id => {
-  //     setTodos(todos.filter(todo => todo.id !== id));
-  //     const url = 'http://localhost:8080/todo/remove';
-  //     axios.get(url, { "params": id });
-  //   },
-  //   [todos],
-  // );
 
   const onToggle = useCallback(
     id => {

@@ -1,5 +1,13 @@
 const { Data } = require('../database/dataSchema')
 
+//count 가져오기
+const count = async(req, res) => {
+    const max_todo = await Data.find().sort({id: -1}).limit(1)
+    console.log(max_todo);
+    return res.status(200).send(max_todo);
+
+}
+
 // todo 작성
 const write = async(req, res) => {
     console.log(req.body)
@@ -31,10 +39,12 @@ const category = async(req, res) => {
 //todo 제거
 const remove = async(req, res) => {
     const id  = req.body.id;
+    console.log(req.body)
     await Data.deleteOne({id: id})
 }
 
 module.exports = {
+    count,
     write,
     list,
     category,

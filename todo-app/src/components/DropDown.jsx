@@ -1,29 +1,13 @@
-import React, {useState, useRef} from 'react'
-import { Dropdown, DropdownButton, FormControl } from 'react-bootstrap';
+import React from 'react'
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import './DropDown.scss'
 
 const DropDown = ({ onSelect }) => {
 
-//     return (
-//         <Dropdown className="DropDown">
-//             <Dropdown.Toggle className="toggle" variant="success" id="dropdown-basic">
-//                 -- Select Category --
-//             </Dropdown.Toggle>
-
-//             <Dropdown.Menu>
-//                 <Dropdown.Item onSelect={onSelect} eventKey="인삿말" className="item" href="#/action-1">인삿말</Dropdown.Item>
-//                 <Dropdown.Item onSelect={onSelect} eventKey="제품소개" className="item" href="#/action-2">제품소개</Dropdown.Item>
-//                 <Dropdown.Item onSelect={onSelect} eventKey="매장안내" className="item" href="#/action-3">매장안내</Dropdown.Item>
-//             </Dropdown.Menu>
-//         </Dropdown>
-//     )
-// }
-
-
-    function AlertItem(item) { 
-        alert(item + "을 선택하셨습니다.");
-    }
+    // function AlertItem(item) { 
+    //     alert(item + "을 선택하셨습니다.");
+    // }
 
     return (
         <DropdownButton id="dropdown-basic-button" title="-- Select Category --">

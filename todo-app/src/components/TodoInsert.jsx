@@ -16,7 +16,7 @@ const TodoInsert = ({ onInsert, cat }) => {
             setValue(''); //value 값 초기화
             e.preventDefault(); //submit 이벤트는 브라우저에서 새로고침을 발생시키는데, 이를 방지하기 위해 이 함수를 호출
         },
-        [onInsert, value],
+        [onInsert, value, cat],
     );
 
     return (
