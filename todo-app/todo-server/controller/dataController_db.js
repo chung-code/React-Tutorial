@@ -4,13 +4,13 @@ const { Data } = require('../database/dataSchema')
 const count = async(req, res) => {
     const max_todo = await Data.find().sort({id: -1}).limit(1)
     console.log(max_todo);
-    return res.status(200).send(max_todo);
-
+    // return res.status(200).send(max_todo);
+    res.send(max_todo);
 }
 
 // todo 작성
 const write = async(req, res) => {
-    console.log(req.body)
+    console.log(req)
     const {id, category, text, checked} = req.body;
     const todo = new Data({
         id: id,
@@ -25,7 +25,8 @@ const write = async(req, res) => {
 const list = async(req, res) => {
     const todos = await Data.find({})
     console.log(todos)
-    return res.status(200).send(todos)
+    // return res.status(200).send(todos)
+    res.send(todos);
 }
 
 // 특정 todos 조회

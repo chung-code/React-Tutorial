@@ -22,7 +22,7 @@ const TodoInsert = ({ onInsert, cat }) => {
     return (
         <form className="TodoInsert" onSubmit={onSubmit}>
             <input 
-                placeholder="할 일을 입력하세요" 
+                placeholder="데이터를 입력하세요" 
                 value={value}
                 onChange={onChange}
             />
