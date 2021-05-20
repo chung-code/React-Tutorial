@@ -9,14 +9,15 @@ const db = require('./database/db')
 
 const cors = require('cors');
 // cors 모듈을 가져와서
+app.use(cors());
 
-const corsOpt = {
-  origin: 'http://localhost:3000',
-  credentials: true, 
-};
-// 모든 도메인의 통신을 허용합니다.
+// const corsOpt = {
+//   origin: 'http://localhost:3000',
+//   credentials: true, 
+// };
+// // 모든 도메인의 통신을 허용합니다.
 
-app.options('*', cors(corsOpt));
+// app.options('*', cors(corsOpt));
 // 모든 options 메서드로의 사전 전달 접근을 허용합니다.
 
 
@@ -27,10 +28,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.use(express.json())
 
-app.use('/todo', cors(corsOpt), router)
-app.get('/test', cors(corsOpt), (req, res) =>{
+app.use('/todo', router)
+app.get('/test', (req, res) =>{
     res.status(200).send("goood")
 })
+
+// app.use('/todo', cors(corsOpt), router)
+// app.get('/test', cors(corsOpt), (req, res) =>{
+//     res.status(200).send("goood")
+// })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
