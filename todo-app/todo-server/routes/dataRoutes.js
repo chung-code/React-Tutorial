@@ -7,7 +7,7 @@ router.get('/test', (req, res) => {
     return res.status(200).send("api call success")
 })
 
-router.put('/write', dataController.write)
+router.post('/write', dataController.write)
 router.get('/count', dataController.count)
 router.get('/list', dataController.list)
 router.get('/category', dataController.category)

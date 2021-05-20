@@ -12,6 +12,7 @@ function App() {
   const [cat, setCat] = useState([]);
 
   const [id, setId] = useState([]);
+  
   useEffect(
     () => {
       // let url = 'http://localhost:8080/todo/count'
@@ -36,12 +37,17 @@ function App() {
       setTodos(todos.concat(todo));
       setId(id + 1);
       let url = '/todo/write'
-      // axios.put(url, todo)
-      fetch(url, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(todo)
-      })
+      axios.post(url, todo)
+        .then(function (response) {
+          console.log(response);
+        }).catch(function (error) {
+          console.error();
+        });
+      // fetch(url, {
+      //   method: 'PUT',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(todo)
+      // })
       console.log(todo)
     },
     [todos, id],
@@ -79,14 +85,14 @@ function App() {
     id => {
       setTodos(todos.filter(todo => todo.id !== id));
       let url = '/todo/remove';
-      // axios.delete(url, { data: { id: id }, headers: { "Authorization": "***" } });
-      fetch(url, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(
-          {id: id}
-        )
-      })
+      axios.delete(url, { data: { id: id }, headers: { "Authorization": "***" } });
+      // fetch(url, {
+      //   method: 'DELETE',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(
+      //     {id: id}
+      //   )
+      // })
     },
     [todos],
   );

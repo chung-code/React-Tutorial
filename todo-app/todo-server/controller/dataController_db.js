@@ -16,9 +16,19 @@ const write = async(req, res) => {
         id: id,
         category: category,
         text: text,
-        checked: checked
+        checked: checked 
     });
-    todo.save();
+    todo
+      .save(todo)
+      .then(data => {
+          res.send(data);
+      })
+      .catch(err => {
+          res.status(500).send({
+              message:
+              err.message || "Some error occured while creating the Tutorial"
+          })
+      })
 }
 
 // 전체 목록 조회
@@ -42,6 +52,15 @@ const remove = async(req, res) => {
     const id  = req.body.id;
     console.log(req.body)
     await Data.deleteOne({id: id})
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                err.message || "Some error occured while creating the Tutorial"
+            })
+        })
 }
 
 module.exports = {
