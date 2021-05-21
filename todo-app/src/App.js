@@ -5,11 +5,12 @@ import TodoTemplate from './components/TodoTemplate';
 import DropDown from './components/DropDown';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
+import TocatInsert from './components/TocatInsert';
 // import useFetch from './useFetch.js';
 
 function App() {
   const [todos, setTodos] = useState([]);
-  const [cat, setCat] = useState([]);
+  const [cat, setCat] = useState(["-- Select Category --"]);
 
   const [id, setId] = useState([]);
   
@@ -25,6 +26,31 @@ function App() {
     },
     [], // 초기 렌더링 시 가져오는 로직
   );
+  
+  const [catList, setCatList] = useState([])
+
+  useEffect(
+    () => {
+      let url = '/todo/list'
+      axios.get(url).then(function(response){
+        let inCat = response.data.map( todo => (todo.category) );
+        console.log(inCat);
+        let initailCat = inCat.filter((element, index) => 
+        {
+          return inCat.indexOf(element) == index
+        });
+        setCatList(initailCat)
+        console.log(initailCat)
+      })
+    },
+    [], // 초기 렌더링 시 가져오는 로직
+  );
+
+  const catInsert = useCallback(
+    (cat) => {
+      setCatList(catList.concat(cat));
+    }
+  )
 
   const onInsert = useCallback(
     (text, cat) => {
@@ -111,7 +137,8 @@ function App() {
   return (
   <TodoTemplate>
     <Button onClick={onClick}> all </Button>
-    <DropDown onSelect={onSelect} />
+    <DropDown onSelect={onSelect} catList={catList} cat={cat}/>
+    <TocatInsert catInsert={catInsert}/>
     <TodoInsert onInsert={onInsert} cat={cat}/>
     <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle}/>
   </TodoTemplate>
